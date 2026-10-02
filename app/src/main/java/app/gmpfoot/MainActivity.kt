@@ -22,13 +22,21 @@ class MainActivity : ComponentActivity() {
             GMPFootTheme {
                 Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
                     val nav = rememberNavController()
-                    val back = { nav.popBackStack(); Unit }
+                    val back: () -> Unit = { nav.popBackStack() }
                     NavHost(nav, startDestination = "home") {
                         composable("home") { HomeScreen { nav.navigate(it) } }
+                        composable("career/pro") {
+                            CareerHubScreen(live = false, onOpen = { nav.navigate(it) }, onBack = back)
+                        }
+                        composable("career/live") {
+                            CareerHubScreen(live = true, onOpen = { nav.navigate(it) }, onBack = back)
+                        }
+                        composable("transfer") { TransferScreen(back) }
                         composable("managers") { ManagerMarketScreen(back) }
-                        composable("pro") { PlaceholderScreen("Carreira Profissional", "Em construção.", back) }
-                        composable("live") { PlaceholderScreen("Carreira Ao Vivo", "Em construção.", back) }
-                        composable("editor") { PlaceholderScreen("Editor de Times", "Em construção: importação via TeamDataSource.", back) }
+                        composable("trophies") { TrophyRoomScreen(back) }
+                        composable("editor") {
+                            PlaceholderScreen("Editor de Times", "Em construção: importação via TeamDataSource.", back)
+                        }
                     }
                 }
             }

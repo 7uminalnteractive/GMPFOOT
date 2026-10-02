@@ -8,28 +8,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-private data class Entry(val title: String, val subtitle: String, val route: String)
+private data class HubItem(val title: String, val subtitle: String, val route: String)
 
-private val entries = listOf(
-    Entry("Carreira Profissional", "Temporada, finanças, diretoria e metas", "career/pro"),
-    Entry("Carreira Ao Vivo", "Elenco e calendário seguindo o mundo real", "career/live"),
-    Entry("Editor de Times", "Importe times, jogadores e a base real", "editor"),
+private val items = listOf(
+    HubItem("Mercado de Jogadores", "Compra e venda com cláusulas", "transfer"),
+    HubItem("Mercado de Técnicos", "Demitidos e disponíveis", "managers"),
+    HubItem("Sala de Troféus", "Suas conquistas", "trophies"),
 )
 
 @Composable
-fun HomeScreen(onOpen: (String) -> Unit) {
+fun CareerHubScreen(live: Boolean, onOpen: (String) -> Unit, onBack: () -> Unit) {
     Column(
         Modifier.fillMaxSize().padding(24.dp).statusBarsPadding(),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Text("GMPFoot", style = MaterialTheme.typography.displaySmall)
+        TextButton(onClick = onBack) { Text("‹ Voltar") }
         Text(
-            "Gerencie. Negocie. Evolua.",
-            style = MaterialTheme.typography.bodyMedium,
+            if (live) "Carreira Ao Vivo" else "Carreira Profissional",
+            style = MaterialTheme.typography.headlineSmall,
+        )
+        Text(
+            if (live) "Elencos, valores e calendário sincronizados com o mundo real."
+            else "Temporada, finanças e diretoria.",
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        Spacer(Modifier.height(16.dp))
-        entries.forEach { e ->
+        Spacer(Modifier.height(8.dp))
+        items.forEach { e ->
             Card(
                 Modifier.fillMaxWidth().clickable { onOpen(e.route) },
                 shape = RoundedCornerShape(16.dp),
