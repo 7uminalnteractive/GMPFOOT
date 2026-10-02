@@ -197,6 +197,24 @@ class GameViewModel(private val app: Application) : AndroidViewModel(app) {
         persist()
     }
 
+    // ---------- central do clube (leitura derivada, sem estado novo) ----------
+
+    val competitionName: String get() = if (base) "Campeonato Sub-20" else "Campeonato"
+
+    val myForm: List<Char> get() = results.formOf(myTeamId ?: "")
+
+    fun lastMyResult(): MatchResult? {
+        val id = myTeamId ?: return null
+        return results.lastOrNull { it.homeId == id || it.awayId == id }
+    }
+
+    fun newsFeed(): List<NewsItem> {
+        val id = myTeamId ?: return emptyList()
+        return NewsFeed.build(id, lastMyResult(), offers, standings, finance)
+    }
+
+    fun alerts(): List<String> = NewsFeed.alerts(lineupError(), finance, offers.size)
+
     // ---------- salvar / carregar ----------
 
     private fun persist() {

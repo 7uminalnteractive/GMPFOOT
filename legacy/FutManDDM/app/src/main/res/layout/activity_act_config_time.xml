@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_act_config_time"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/background_light">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <Button
+            android:text="Voltar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/btVoltar"
+            android:layout_weight=".5"
+            android:minWidth="0dp"
+            android:background="@android:color/holo_orange_light" />
+
+        <Button
+            android:text="Jogar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btJogar"
+            android:minWidth="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/holo_green_light"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ebayern"
+            android:id="@+id/escudoCasa"
+            android:layout_weight=".35"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:text="X"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:layout_weight=".1"
+            android:textAlignment="center"
+            android:layout_width="5dp"
+            android:textSize="18sp"
+            android:textStyle="normal|bold"
+            android:layout_gravity="center" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/eatlmadrid"
+            android:id="@+id/escudoVisitante"
+            android:layout_weight=".35"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_light"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:text="Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scoreCasa"
+            android:layout_weight=".45"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/holo_red_dark"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:text="Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scoreVisitante"
+            android:layout_weight=".45"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/holo_red_dark"
+            android:textStyle="normal|bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_light">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="50/50 - Balanceado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tFormacao"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:textStyle="normal|bold"
+                android:textAlignment="center"
+                android:lineSpacingExtra="8sp"
+                android:paddingTop="10dp" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekFormacao"
+                android:layout_weight="1"
+                android:max="4"
+                android:paddingTop="5dp"
+                android:progress="2" />
+
+        </LinearLayout>
+
+        <TextView
+            android:text="Colocação: 1 (12 pts)\nPróximos jogo: Juventus (casa)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/infoTime"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textStyle="normal|italic"
+            android:textColor="@android:color/black"
+            android:lineSpacingExtra="8sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none"
+        android:layout_weight="1">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tabela">
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </TableLayout>
+    </ScrollView>
+
+
+</LinearLayout>

@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                                 nav.navigate("hub") { popUpTo("home") }
                             }, onBack = back)
                         }
-                        composable("hub") { GameHubScreen(vm, onOpen = { nav.navigate(it) }, onBack = { nav.popBackStack("home", false) }) }
+                        composable("hub") { CentralScreen(vm, onOpen = { nav.navigate(it) }, onExit = { nav.popBackStack("home", false) }) }
                         composable("lineup") { LineupScreen(vm, back) }
                         composable("match") { MatchScreen(vm, onDone = back) }
                         composable("standings") { StandingsScreen(vm, back) }

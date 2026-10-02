@@ -61,7 +61,14 @@ fun Team.strength(l: Lineup): Strength {
 fun Team.rating(): Int =
     squad.sortedByDescending { it.overall }.take(11).map { it.overall }.average().toInt()
 
-data class MatchEvent(val minute: Int, val text: String, val homeSide: Boolean, val goal: Boolean)
+data class MatchEvent(
+    val minute: Int,
+    val text: String,
+    val homeSide: Boolean,
+    val goal: Boolean,
+    /** Autor do lance (nulo em saves antigos). */
+    val player: String? = null,
+)
 
 data class MatchResult(
     val homeId: String,
@@ -102,12 +109,12 @@ object MatchEngine {
                 val conv = (0.17 * r).coerceIn(0.07, 0.35)
                 if (rnd.nextDouble() < conv) {
                     if (homeSide) hg++ else ag++
-                    events += MatchEvent(minute, "GOL! ${shooter.name} marca para o ${atkTeam.name}.", homeSide, true)
+                    events += MatchEvent(minute, "GOL! ${shooter.name} marca para o ${atkTeam.name}.", homeSide, true, shooter.name)
                 } else if (rnd.nextBoolean()) {
                     val k = keeper?.name ?: "o goleiro"
-                    events += MatchEvent(minute, "${shooter.name} finaliza e $k defende.", homeSide, false)
+                    events += MatchEvent(minute, "${shooter.name} finaliza e $k defende.", homeSide, false, shooter.name)
                 } else {
-                    events += MatchEvent(minute, "${shooter.name} chuta para fora.", homeSide, false)
+                    events += MatchEvent(minute, "${shooter.name} chuta para fora.", homeSide, false, shooter.name)
                 }
             }
         }

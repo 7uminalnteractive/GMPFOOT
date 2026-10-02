@@ -16,3 +16,8 @@ Android nativo (Kotlin + Jetpack Compose). Build: GitHub Actions → **Android C
 3. No app: **Editor de Times** → cole a URL raw do `teams.json` → Importar → nova carreira.
 
 Atenção: a licença da fonte dos dados é sua responsabilidade (scraping de sites como ogol/Transfermarkt costuma ser proibido pelos termos).
+
+## Estrutura do repositório
+- `app/` — app Android atual (Kotlin + Compose). É o que o CI compila.
+- `legacy/` — protótipos Java antigos (Brasfoot, FutManDDM), mantidos só como referência de regras.
+- `docs/AUDITORIA.md` — auditoria, arquitetura proposta e plano por fases.
