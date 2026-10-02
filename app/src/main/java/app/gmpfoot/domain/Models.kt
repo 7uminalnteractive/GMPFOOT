@@ -7,10 +7,16 @@ data class Player(
     val name: String,
     val position: Position,
     val age: Int,
-    val overall: Int,
-    val marketValueEur: Long,
+    val technique: Int,
+    val physical: Int,
+    val intelligence: Int,
+    val motivation: Int,
+    val marketValueEur: Long = 0,
     val isYouth: Boolean = false,
-)
+) {
+    /** Mesma ideia do Brasfoot base: média dos 4 atributos. */
+    val overall: Int get() = (technique + physical + intelligence + motivation) / 4
+}
 
 data class Team(
     val id: String,

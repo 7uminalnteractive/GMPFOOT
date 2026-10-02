@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -21,22 +22,39 @@ class MainActivity : ComponentActivity() {
         setContent {
             GMPFootTheme {
                 Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+                    val vm: GameViewModel = viewModel()
                     val nav = rememberNavController()
                     val back: () -> Unit = { nav.popBackStack() }
                     NavHost(nav, startDestination = "home") {
-                        composable("home") { HomeScreen { nav.navigate(it) } }
-                        composable("career/pro") {
-                            CareerHubScreen(live = false, onOpen = { nav.navigate(it) }, onBack = back)
+                        composable("home") {
+                            HomeScreen(vm.hasSave) { route ->
+                                if (route == "continue") {
+                                    if (vm.loadSave()) nav.navigate("hub")
+                                } else nav.navigate(route)
+                            }
                         }
-                        composable("career/live") {
-                            CareerHubScreen(live = true, onOpen = { nav.navigate(it) }, onBack = back)
+                        composable("select/pro") {
+                            TeamSelectScreen(vm, live = false, onStart = {
+                                nav.navigate("hub") { popUpTo("home") }
+                            }, onBack = back)
                         }
+                        composable("select/live") {
+                            TeamSelectScreen(vm, live = true, onStart = {
+                                nav.navigate("hub") { popUpTo("home") }
+                            }, onBack = back)
+                        }
+                        composable("hub") { GameHubScreen(vm, onOpen = { nav.navigate(it) }, onBack = { nav.popBackStack("home", false) }) }
+                        composable("lineup") { LineupScreen(vm, back) }
+                        composable("match") { MatchScreen(vm, onDone = back) }
+                        composable("standings") { StandingsScreen(vm, back) }
+                        composable("finance") { FinanceScreen(vm, back) }
+                        composable("offers") { OffersScreen(vm, back) }
+                        composable("youth") { YouthScreen(vm, back) }
                         composable("transfer") { TransferScreen(back) }
                         composable("managers") { ManagerMarketScreen(back) }
-                        composable("trophies") { TrophyRoomScreen(back) }
-                        composable("editor") {
-                            PlaceholderScreen("Editor de Times", "Em construção: importação via TeamDataSource.", back)
-                        }
+                        composable("trophies") { TrophyRoomScreen(vm.trophies, back) }
+                        composable("academy") { AcademyScreen(vm, back) }
+                        composable("editor") { DataSourceScreen(vm, back) }
                     }
                 }
             }

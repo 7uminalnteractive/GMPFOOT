@@ -13,7 +13,6 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.dp
-import app.gmpfoot.data.SampleData
 import app.gmpfoot.domain.Trophy
 import app.gmpfoot.domain.TrophyKind
 
@@ -76,8 +75,7 @@ private fun Shelf(trophies: List<Trophy>) {
 }
 
 @Composable
-fun TrophyRoomScreen(onBack: () -> Unit) {
-    val trophies = SampleData.trophies
+fun TrophyRoomScreen(trophies: List<Trophy>, onBack: () -> Unit) {
     Column(
         Modifier.fillMaxSize().padding(24.dp).statusBarsPadding().verticalScroll(rememberScrollState()),
     ) {
@@ -85,6 +83,9 @@ fun TrophyRoomScreen(onBack: () -> Unit) {
         Text("Sala de Troféus", style = MaterialTheme.typography.headlineSmall)
         Text("${trophies.size} conquistas", color = MaterialTheme.colorScheme.onSurfaceVariant)
         Spacer(Modifier.height(24.dp))
+        if (trophies.isEmpty()) {
+            Text("Ganhe um título para preencher a prateleira.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
         trophies.chunked(3).forEach { Shelf(it) }
     }
 }
